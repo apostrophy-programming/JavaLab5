@@ -39,7 +39,7 @@ public class AddCommand implements Command {
      */
     @Override
     public void execute(String[] args) {
-        Vehicle vehicle = inputManager.readInputVehicle(false, null);
+        Vehicle vehicle = inputManager.readVehicle(false, null);
         collectionManager.add(vehicle);
         System.out.println("Элемент добавлен с id = " + vehicle.getId());
     }

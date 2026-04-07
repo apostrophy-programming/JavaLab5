@@ -28,7 +28,7 @@ public class InputManager {
      * @param existingId для update можно передать id, чтобы не генерировать новый
      * @return новый объект Vehicle
      */
-    public Vehicle readInputVehicle(boolean isUpdate, Long existingId) {
+    public Vehicle readVehicle(boolean isUpdate, Long existingId) {
 
         LocalDate creationDate = isUpdate ? null : LocalDate.now();
 
@@ -49,9 +49,8 @@ public class InputManager {
         FuelType fuelType = readEnum("Введите fuelType: ", FuelType.class, true);
 
         return new Vehicle(null, name, coordinates, creationDate, enginePower, capacity, type, fuelType);
-        }
-
     }
+
 
     /**
      * Читает строку с консоли.
