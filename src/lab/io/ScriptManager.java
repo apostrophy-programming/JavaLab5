@@ -16,7 +16,6 @@ import java.util.Set;
  */
 public class ScriptManager {
     private final Set<String> runningScripts = new HashSet<>();
-
     /**
      * Выполняет скрипт из указанного файла.
      *
@@ -41,9 +40,11 @@ public class ScriptManager {
         }
 
 
-        try (Scanner scriptScanner = new Scanner(file)) {
-            while (scriptScanner.hasNextLine()) {
-                String line = scriptScanner.nextLine().trim();
+        Scanner oldScanner = app.getInputManager().getScanner();
+        try (Scanner fileScanner = new Scanner(file)) {
+            app.getInputManager().setScanner(fileScanner);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
                 if (line.isEmpty() || line.startsWith("#")) continue;
                 System.out.println("Выполняется: " + line);
                 app.executeCommand(line);
@@ -51,10 +52,10 @@ public class ScriptManager {
         } catch (FileNotFoundException e) {
             System.out.println("Ошибка чтения файла скрипта: " + e.getMessage());
         } finally {
+            app.getInputManager().setScanner(oldScanner);
             runningScripts.remove(file.getAbsolutePath());
             app.setCurrentScriptFile(previousScript);
         }
-
 
     }
 }

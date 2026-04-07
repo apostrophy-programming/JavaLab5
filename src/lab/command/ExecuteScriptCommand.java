@@ -1,6 +1,7 @@
 package lab.command;
 
 import lab.App;
+import lab.io.InputManager;
 import lab.io.ScriptManager;
 
 /**
@@ -13,6 +14,7 @@ import lab.io.ScriptManager;
 public class ExecuteScriptCommand implements Command {
     private final App app;
     private final ScriptManager scriptManager;
+    private final InputManager inputManager;
 
     /**
      * Конструктор команды.
@@ -20,9 +22,10 @@ public class ExecuteScriptCommand implements Command {
      * @param app           экземпляр приложения (для выполнения команд из скрипта)
      * @param scriptManager менеджер скриптов
      */
-    public ExecuteScriptCommand(App app, ScriptManager scriptManager) {
+    public ExecuteScriptCommand(App app, ScriptManager scriptManager, InputManager inputManager) {
         this.app = app;
         this.scriptManager = scriptManager;
+        this.inputManager = inputManager;
     }
 
     /**
@@ -42,6 +45,7 @@ public class ExecuteScriptCommand implements Command {
         }
         String fileName = args[0];
         scriptManager.executeScript(fileName, app);
+
     }
 
     /**

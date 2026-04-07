@@ -55,7 +55,7 @@ public class App {
         commands.put("remove_by_id", new RemoveByIdCommand(collectionManager));
         commands.put("clear", new ClearCommand(collectionManager));
         commands.put("save", new SaveCommand(collectionManager, fileManager));
-        commands.put("execute_script", new ExecuteScriptCommand(this, scriptManager));
+        commands.put("execute_script", new ExecuteScriptCommand(this, scriptManager, inputManager));
         commands.put("exit", new ExitCommand(this));
         commands.put("remove_first", new RemoveFirstCommand(collectionManager));
         commands.put("add_if_min", new AddIfMinCommand(collectionManager, inputManager));
@@ -161,5 +161,9 @@ public class App {
     public void exitApp () {
         setRunning(false);
         System.exit(0);
+    }
+
+    public InputManager getInputManager() {
+        return inputManager;
     }
 }

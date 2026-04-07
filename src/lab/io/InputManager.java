@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author Max
  */
 public class InputManager {
-    private final Scanner scanner;
+    private Scanner scanner;
 
     /**
      * Конструктор, инициализирует сканер System.in.
@@ -51,6 +51,14 @@ public class InputManager {
         return new Vehicle(null, name, coordinates, creationDate, enginePower, capacity, type, fuelType);
     }
 
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
 
     /**
      * Читает строку с консоли.
