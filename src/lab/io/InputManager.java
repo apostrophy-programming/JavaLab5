@@ -28,13 +28,15 @@ public class InputManager {
      * @param existingId для update можно передать id, чтобы не генерировать новый
      * @return новый объект Vehicle
      */
-    public Vehicle readVehicle(boolean isUpdate, Long existingId) {
+    public Vehicle readInputVehicle(boolean isUpdate, Long existingId) {
+
+        LocalDate creationDate = isUpdate ? null : LocalDate.now();
+
         String name = readString("Введите name (не может быть пустым): ", false, true);
 
         System.out.println("Введите coordinates:");
         Integer x = readInt("  x (целое число, не null): ", false, null, null);
         Long y = readLong("  y (целое число > -289, не null): ", false, -289L, null);
-
         Coordinates coordinates = new Coordinates(x, y);
 
         Integer enginePower = readInt("Введите enginePower (целое > 0, может быть пустым): ", true, 1, null);
@@ -46,9 +48,9 @@ public class InputManager {
         System.out.println("Доступные FuelType: GASOLINE, MANPOWER, PLASMA, ANTIMATTER (можно оставить пустым)");
         FuelType fuelType = readEnum("Введите fuelType: ", FuelType.class, true);
 
-        LocalDate creationDate = isUpdate ? null : LocalDate.now();
-
         return new Vehicle(null, name, coordinates, creationDate, enginePower, capacity, type, fuelType);
+        }
+
     }
 
     /**

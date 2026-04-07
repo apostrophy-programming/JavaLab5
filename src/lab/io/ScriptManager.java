@@ -36,8 +36,11 @@ public class ScriptManager {
         runningScripts.add(file.getAbsolutePath());
         String previousScript = app.getCurrentScriptFile();
         app.setCurrentScriptFile(file.getAbsolutePath());
+        for (String name:runningScripts) {
+            System.out.println(name);
+        }
 
-        /*
+
         try (Scanner scriptScanner = new Scanner(file)) {
             while (scriptScanner.hasNextLine()) {
                 String line = scriptScanner.nextLine().trim();
@@ -53,28 +56,5 @@ public class ScriptManager {
         }
 
 
-        public void executeScript(String fileName, App app) {
-            // ... проверки рекурсии
-            try (Scanner fileScanner = new Scanner(file)) {
-                // Сохраняем старый сканер
-                InputManager inputManager = app.getInputManager();
-                Scanner oldScanner = inputManager.getScanner(); // нужен геттер
-                inputManager.setScanner(fileScanner);
-
-                while (fileScanner.hasNextLine()) {
-                    String line = fileScanner.nextLine().trim();
-                    if (line.isEmpty() || line.startsWith("#")) continue;
-                    System.out.println("Выполняется: " + line);
-                    app.executeCommand(line);
-                }
-
-                // Восстанавливаем старый сканер
-                inputManager.setScanner(oldScanner);
-            } catch (FileNotFoundException e) {
-                System.out.println("Ошибка чтения файла скрипта: " + e.getMessage());
-            }
-        }
-
-         */
     }
 }

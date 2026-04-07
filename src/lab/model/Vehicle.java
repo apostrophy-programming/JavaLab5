@@ -150,14 +150,19 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     /**
-     * Сравнивает два транспортных средства по id.
+     * Сравнивает два транспортных средства по мощности двигателя и по вместимости.
      *
      * @param o объект для сравнения
      * @return отрицательное, ноль или положительное число
      */
     @Override
     public int compareTo(Vehicle o) {
-        return Long.compare(this.id, o.id);
+        int compareValue = Integer.compare(this.enginePower, o.enginePower);
+        if (compareValue !=0) {
+            return  compareValue;
+        }
+        else
+            return Float.compare(this.capacity, o.capacity);
     }
 
     /**
