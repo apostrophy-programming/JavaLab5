@@ -14,41 +14,54 @@ import java.util.Scanner;
  */
 public class InputManager {
     private Scanner scanner;
+    private boolean isReadingInput = true;
 
     /**
      * Конструктор, инициализирует сканер System.in.
      */
     public InputManager() {
-        this.scanner = new Scanner(System.in);
     }
 
     /**
      * Читает объект Vehicle с консоли.
-     * @param isUpdate если true, id и дата не запрашиваются (генерируются автоматически)
+     *
+     * @param isUpdate   если true, id и дата не запрашиваются (генерируются автоматически)
      * @param existingId для update можно передать id, чтобы не генерировать новый
      * @return новый объект Vehicle
      */
     public Vehicle readVehicle(boolean isUpdate, Long existingId) {
-
         LocalDate creationDate = isUpdate ? null : LocalDate.now();
+        if (isReadingInput) {
+            String name = readString("Введите name (не может быть пустым): ", false, true);
 
-        String name = readString("Введите name (не может быть пустым): ", false, true);
+            System.out.println("Введите coordinates:");
+            Integer x = readInt("  x (целое число, не null): ", false, null, null);
+            Long y = readLong("  y (целое число > -289, не null): ", false, -289L, null);
+            Coordinates coordinates = new Coordinates(x, y);
 
-        System.out.println("Введите coordinates:");
-        Integer x = readInt("  x (целое число, не null): ", false, null, null);
-        Long y = readLong("  y (целое число > -289, не null): ", false, -289L, null);
-        Coordinates coordinates = new Coordinates(x, y);
+            Integer enginePower = readInt("Введите enginePower (целое > 0, может быть пустым): ", true, 1, null);
+            float capacity = readFloat("Введите capacity (число > 0): ", false, 0.0f, null);
 
-        Integer enginePower = readInt("Введите enginePower (целое > 0, может быть пустым): ", true, 1, null);
-        float capacity = readFloat("Введите capacity (число > 0): ", false, 0.0f, null);
+            System.out.println("Доступные VehicleType: CAR, DRONE, SUBMARINE, SHIP");
+            VehicleType type = readEnum("Введите type (одно из значений): ", VehicleType.class, false);
 
-        System.out.println("Доступные VehicleType: CAR, DRONE, SUBMARINE, SHIP");
-        VehicleType type = readEnum("Введите type (одно из значений): ", VehicleType.class, false);
+            System.out.println("Доступные FuelType: GASOLINE, MANPOWER, PLASMA, ANTIMATTER (можно оставить пустым)");
+            FuelType fuelType = readEnum("Введите fuelType: ", FuelType.class, true);
 
-        System.out.println("Доступные FuelType: GASOLINE, MANPOWER, PLASMA, ANTIMATTER (можно оставить пустым)");
-        FuelType fuelType = readEnum("Введите fuelType: ", FuelType.class, true);
+            return new Vehicle(null, name, coordinates, creationDate, enginePower, capacity, type, fuelType);
+        }
+        else {
+            String name = readString("", false, true);
+            Integer x = readInt("", false, null, null);
+            Long y = readLong("", false, -289L, null);
+            Coordinates coordinates = new Coordinates(x, y);
+            Integer enginePower = readInt("", true, 1, null);
+            float capacity = readFloat("", false, 0.0f, null);
+            VehicleType type = readEnum("", VehicleType.class, false);
+            FuelType fuelType = readEnum("", FuelType.class, true);
 
-        return new Vehicle(null, name, coordinates, creationDate, enginePower, capacity, type, fuelType);
+            return new Vehicle(null, name, coordinates, creationDate, enginePower, capacity, type, fuelType);
+        }
     }
 
 
@@ -58,6 +71,14 @@ public class InputManager {
 
     public Scanner getScanner() {
         return scanner;
+    }
+
+    public void setReadingInput(boolean readingInput) {
+        isReadingInput = readingInput;
+    }
+
+    public boolean isReadingInput() {
+        return isReadingInput;
     }
 
     /**

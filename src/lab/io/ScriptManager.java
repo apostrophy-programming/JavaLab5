@@ -16,6 +16,7 @@ import java.util.Set;
  */
 public class ScriptManager {
     private final Set<String> runningScripts = new HashSet<>();
+
     /**
      * Выполняет скрипт из указанного файла.
      *
@@ -43,6 +44,7 @@ public class ScriptManager {
         Scanner oldScanner = app.getInputManager().getScanner();
         try (Scanner fileScanner = new Scanner(file)) {
             app.getInputManager().setScanner(fileScanner);
+            app.getInputManager().setReadingInput(false);
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine().trim();
                 if (line.isEmpty() || line.startsWith("#")) continue;
@@ -53,9 +55,11 @@ public class ScriptManager {
             System.out.println("Ошибка чтения файла скрипта: " + e.getMessage());
         } finally {
             app.getInputManager().setScanner(oldScanner);
+            app.getInputManager().setReadingInput(true);
             runningScripts.remove(file.getAbsolutePath());
             app.setCurrentScriptFile(previousScript);
         }
 
     }
+
 }

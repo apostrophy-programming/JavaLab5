@@ -2,12 +2,7 @@ package lab.command;
 
 import lab.collection.CollectionManager;
 import lab.io.InputManager;
-import lab.model.Coordinates;
-import lab.model.FuelType;
 import lab.model.Vehicle;
-import lab.model.VehicleType;
-
-import java.time.LocalDate;
 
 /**
  * Команда {@code add}.
@@ -19,7 +14,6 @@ import java.time.LocalDate;
 public class AddCommand implements Command {
     private final CollectionManager collectionManager;
     private final InputManager inputManager;
-
     /**
      * Конструктор команды.
      *
@@ -41,7 +35,7 @@ public class AddCommand implements Command {
     public void execute(String[] args) {
         Vehicle vehicle = inputManager.readVehicle(false, null);
         collectionManager.add(vehicle);
-        System.out.println("Элемент добавлен с id = " + vehicle.getId());
+        System.out.println("Элемент " + vehicle.getName() + " добавлен с id = " + vehicle.getId());
     }
 
     /**
