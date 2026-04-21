@@ -14,7 +14,7 @@ public class Main {
      * @param args аргументы командной строки (первый аргумент – имя файла)
      */
     public static void main(String[] args) {
-        /*
+
         if (args.length == 0) {
             System.err.println("Ошибка: не указано имя файла.");
             System.exit(1);
@@ -22,8 +22,6 @@ public class Main {
 
         App app = new App(args[0]);
         app.start();
-        */
-        App app = new App("data.xml");
-        app.start();
+
     }
 }
